@@ -1,5 +1,3 @@
----
-
 # Group Boosts
 
 Make sure to change your group for Group Boosts to work.  
