@@ -64,6 +64,11 @@ Most of the game configuration is located in **Data (folder)** and **Game (model
 
 ---
 
+## Icons
+Each time you add a currency, rebirth, or similar item, make sure to add an icon in the `Icons` module.
+
+<img width="182" height="93" alt="image" src="https://github.com/user-attachments/assets/c18dd98e-9b90-43e6-809f-6881c4bc9e2e" />
+
 ## GameInfo
 
 In the `GameInfo` module, you can modify several values. Most names are self-explanatory, but here are some details:
@@ -201,4 +206,195 @@ There are 4 types of boosts and 1 special case:
 math.floor(StartPrice * PriceMult ^ Level)
 ```
 
+---
 
+## Rebirth
+
+---
+
+Similar to upgrades, there is a part that displays the UI.  
+**Tag:** `Rebirth`
+
+---
+
+### Configuration
+
+---
+
+The part **must have the same name as the module**:
+
+<img width="235" height="110" alt="image" src="https://github.com/user-attachments/assets/c9ab3c3c-2ce7-4551-af32-915fe947728f" />
+
+**Settings:**
+
+- **Name**: Display name (recommended to match module script: `Rebirth`, `Prestige`, etc.)
+- **Currency**: The currency used to buy the rebirth
+- **Price**: Cost of one rebirth
+
+**Colors:** Same as Upgrade Visual configuration
+
+Reset:
+The hardest part is what the rebirth resets. Example:
+
+```luau
+Reset = {
+	{{"Honey"}, 0, "Set"},
+	{{"Upgrades", "BeeUpgrades"}, {}, "Set"},
+},
+```
+Explanation:
+- PlayerData.Honey = 0 → Resets the player's honey
+- PlayerData.Upgrades[BeeUpgrades] = {} → Removes all BeeUpgrade upgrades
+- The "Set" action simply sets the value in PlayerData to the one defined in the reset table.
+- You can add more entries to reset whatever else you want upon rebirth.
+
+--- 
+
+## Bee
+
+TODO
+
+---
+
+## Runes
+
+---
+
+Similar to upgrades, there is a part that displays the UI.  
+There is also a separate part for the button.  
+**The module and the display/button parts must have the same name.**
+
+<img width="155" height="87" alt="image" src="https://github.com/user-attachments/assets/10d1931b-4265-423a-8cdb-b2533d54c84e" />
+
+---
+
+### Configuration
+
+---
+
+Most settings are self-explanatory. Here are the key details:
+
+- **Rarity**: Determines drop chance. Formula: `1 / Rarity`  
+  Example: `Rarity = 10` → `1 / 10 = 10%` chance
+
+- **Boosts**: Same as upgrade boosts.  
+  You can define `BoostType`, `StartBoost`, `Boost`, and `TotalBoost` exactly like you do for upgrades.
+
+---
+
+---
+
+## World
+
+---
+
+Here you can learn how to configure and add worlds.
+
+---
+
+### Zones
+
+---
+
+If you want to add a world, make sure the zone fits the world map.  
+Each world has a zone, which is used to determine which world the player is in.
+
+<img width="151" height="125" alt="image" src="https://github.com/user-attachments/assets/3a0e83fd-8343-431c-b5d5-96a9d6a84e10" />
+
+---
+
+### Bee Spawn Zones
+
+---
+
+Each world has a spawn part for bees.  
+Simply clone it and resize if you want it larger.
+
+<img width="147" height="81" alt="image" src="https://github.com/user-attachments/assets/3590a121-4622-47c8-b4cd-4b7355ca3f6b" />
+
+---
+
+### Portal
+
+---
+
+Portals are simple. Each portal has two parts: 
+
+- **Hit** → The part the player touches  
+- **To** → The destination part  
+
+When the player touches `Hit`, they are teleported to `To` if they have access to the world.
+
+---
+
+### World Configuration
+
+---
+
+All world settings are in the world data modules.  
+Everything is organized and easy to understand.  
+If you want to add a new world, just follow the structure in the modules.
+
+--- 
+
+### Bee Worlds
+
+--- 
+
+TODO
+
+---
+
+# Tutorial
+
+---
+
+## Add Worlds
+
+---
+
+First, you need a map.  
+For example, you can clone the **Snow Map** and edit its colors to create a Desert or Lava map.  
+
+Move the cloned map **750 studs** along any axis (remember this number for later you can move by 2K studs for exemple I take 750).
+
+<img width="819" height="412" alt="image" src="https://github.com/user-attachments/assets/84b4f85e-1001-4996-a4c7-dd3121cb3807" />
+
+> At this point, nothing on the cloned map will work yet.
+
+---
+
+### Adding Portals
+
+---
+
+We already have a portal for World 3 (if not, just clone an old one):
+
+1. Move the **To** part 1500 studs so it matches World 3's spawn.
+2. Keep the **Hit** part in place.
+
+<img width="192" height="133" alt="image" src="https://github.com/user-attachments/assets/5aecafbf-e2e8-4006-8817-555970244cfd" />
+<img width="531" height="351" alt="image" src="https://github.com/user-attachments/assets/62b77c42-0a76-43f7-a592-bab0f12b56c2" />
+
+---
+
+### Creating a New Portal for Previous Worlds
+
+---
+
+To create a portal to go back to an old world:
+
+1. Duplicate the portal that redirects to the previous world.  
+   (If making World 3, clone **Portal World_1**)
+2. Move it **750 studs**.
+3. Rename it `"World_2"` to direct players to World 2.
+4. Duplicate the portal decoration, move it, and update the **TextLabels** (There is 2, one is children of the other one):
+   - Change `"World 1"` → `"World 2"`
+
+---
+
+### Configuring the World
+
+---
+
+TODO
