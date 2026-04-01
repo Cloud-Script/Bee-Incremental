@@ -236,10 +236,10 @@ The hardest part is what the rebirth resets. Example:
 
 ```luau
 Reset = {
-	{{"Honey"}, 0, "Set"},
-	{{"Upgrades", "BeeUpgrades"}, {}, "Set"},
+	...
 },
 ```
+
 Explanation:
 - PlayerData.Honey = 0 → Resets the player's honey
 - PlayerData.Upgrades[BeeUpgrades] = {} → Removes all BeeUpgrade upgrades
@@ -277,8 +277,6 @@ Most settings are self-explanatory. Here are the key details:
 
 - **Boosts**: Same as upgrade boosts.  
   You can define `BoostType`, `StartBoost`, `Boost`, and `TotalBoost` exactly like you do for upgrades.
-
----
 
 ---
 
