@@ -246,11 +246,44 @@ Explanation:
 - The "Set" action simply sets the value in PlayerData to the one defined in the reset table.
 - You can add more entries to reset whatever else you want upon rebirth.
 
---- 
+---
 
 ## Bee
 
-TODO
+---
+
+To configure bees, go into the **BeeData module** of the world you want to edit.
+
+<img width="217" height="107" alt="image" src="https://github.com/user-attachments/assets/0dbb0ffd-c6e8-4348-8c86-485b3ab7483e" />
+
+---
+
+### Configuration
+
+- **Currency**: The name of the currency the bee gives  
+- **DropColor**: The color of the drop *(e.g. blue for a frozen world)*  
+- **DropTrail**: The color of the trail *(same idea as DropColor)*  
+
+---
+
+### Bee Settings
+
+Each bee has its own configuration:
+- **Model**: The model path  
+  Example:  
+  `BeeAssets.World_1.Angel`  
+  *(BeeAssets = ReplicatedStorage.Assets.Bee)*  
+
+<img width="193" height="110" alt="image" src="https://github.com/user-attachments/assets/763ad858-0243-4bcf-88e0-da0b1389c882" />
+
+- **Rarity**: Works the same as rune rarity  
+  Formula: `1 / Rarity`  
+  *(See Runes configuration for more details)*  
+
+- **StingerRarity**: Increases the chance to drop a stinger  
+  Formula: `DefaultChance / StingerRarity`  
+
+- **Stats**: The amount of currency the bee gives  
 
 ---
 
@@ -284,11 +317,11 @@ Most settings are self-explanatory. Here are the key details:
 
 ---
 
-Here you can learn how to configure and add worlds.
+Here you can learn how to configure worlds.
 
 ---
 
-### Zones
+### Zones + Spawn
 
 ---
 
@@ -296,6 +329,21 @@ If you want to add a world, make sure the zone fits the world map.
 Each world has a zone, which is used to determine which world the player is in.
 
 <img width="151" height="125" alt="image" src="https://github.com/user-attachments/assets/3a0e83fd-8343-431c-b5d5-96a9d6a84e10" />
+
+
+---
+
+### Player Spawn
+
+---
+
+You also need a spawn location for the player.
+
+Place a spawn point in your world, then add it to the **LocationData** module.
+
+<img width="163" height="86" alt="image" src="https://github.com/user-attachments/assets/a343bb29-6a52-4317-b6cd-f3a1d590e548" />
+
+<img width="215" height="129" alt="image" src="https://github.com/user-attachments/assets/bda07e3b-827e-4525-9bab-123df7827607" />
 
 ---
 
@@ -335,9 +383,10 @@ If you want to add a new world, just follow the structure in the modules.
 
 ### Bee Worlds
 
---- 
+---
 
-TODO
+Each world has its own bee.  
+See **Bee Configuration** for more information.
 
 ---
 
@@ -372,6 +421,10 @@ We already have a portal for World 3 (if not, just clone an old one):
 <img width="192" height="133" alt="image" src="https://github.com/user-attachments/assets/5aecafbf-e2e8-4006-8817-555970244cfd" />
 <img width="531" height="351" alt="image" src="https://github.com/user-attachments/assets/62b77c42-0a76-43f7-a592-bab0f12b56c2" />
 
+3. Make sure the pivot is in front of the model (This is where the UI will show on Portal World 3 it wasn't so just put it in fonrt of the model (Moving it by 755 stud should be good!
+
+<img width="452" height="322" alt="image" src="https://github.com/user-attachments/assets/b6cd28c1-f12e-4598-bfda-531890b81e7d" />
+
 ---
 
 ### Creating a New Portal for Previous Worlds
@@ -393,4 +446,188 @@ To create a portal to go back to an old world:
 
 ---
 
-TODO
+#### Add to Worlds
+
+---
+
+In the **WorldData** module, you can add a new world (e.g. World 3).
+
+You can edit the price and other settings. In this example, we simply copied **World_2** and changed the name and values.  
+*(See World Configuration above for more details)*
+
+<img width="190" height="96" alt="image" src="https://github.com/user-attachments/assets/5e5151a8-9556-42e3-97af-71f705e69db0" />
+
+---
+
+### Final Script Example
+
+```luau
+return {
+    CanTeleport = {
+        World_1 = true,
+    },
+
+    World_2 = {
+        Display = "World 2",
+        Currency = "Honey",
+        Price = 1000000,
+    },
+    
+    World_3 = {
+        Display = "World 3",
+        Currency = "FrozenHoney",
+        Price = 1000000,
+    },
+}
+```
+
+After this, players will be able to purchase and access World 3.
+
+---
+
+#### Zones + Spawn Zones + Spawn
+
+---
+
+- First, clone the **World_2** zone and move it (e.g. 750 studs).  
+- Resize it if you're using your own map and it's bigger.  
+- Rename it to **World_3**  
+
+<img width="174" height="93" alt="image" src="https://github.com/user-attachments/assets/91c731c9-f1a6-4b8b-bffe-843891da3c0b" />
+
+- Do the same for the **bee spawn zone**  
+
+<img width="166" height="108" alt="image" src="https://github.com/user-attachments/assets/e8647118-750e-4f19-afba-ca98f87a2680" />
+
+Make sure to also add a **World_3 player spawn**  
+*(See World Configuration → Player Spawn above)*
+
+---
+
+#### Adding Bees
+
+---
+
+If you try to play after adding the zone, the game will not work because no bees can spawn in **World_3**.
+
+To fix this, simply clone the **World_2 BeeData** and rename it to **World_3**.
+
+<img width="136" height="88" alt="image" src="https://github.com/user-attachments/assets/0b749613-687e-4b4d-84ad-db1ae5f8fc3d" />
+
+Make sure to change the currency, unless you want it to be an extension of another world.
+Make sure to also add the currency icon in the **Icons** module.
+(See **Configuration → Icons** above if needed.)
+Example:
+```luau
+Currency = "LavaHoney",
+```
+
+You can then edit the file:
+- Add more bees  
+- Change models  
+- Rename bees  
+
+*(See Bee Configuration if needed)*
+
+---
+
+#### ⚠️ IMPORTANT (OR IT WILL NOT WORK)
+
+The top UI is **not dynamic** — it is pre-made.  
+So you must create a UI for your new currency.
+
+Go into **HUD**, duplicate an existing UI, then:
+- Change its color
+- Rename it to match your currency  
+
+*(Icons are set dynamically, so you don’t need to change the icon manually.)*
+
+<img width="293" height="240" alt="image" src="https://github.com/user-attachments/assets/0b4e5aa6-e8dc-4718-8981-840b636b5241" />
+
+---
+
+#### Upgrades
+
+Now bees can spawn... but there are no upgrades yet.
+
+- Clone the invisible part used for the upgrade board  
+- Rename it to something **unique**  
+  Example: `World_3BeeUpgrades`
+
+<img width="222" height="211" alt="image" src="https://github.com/user-attachments/assets/85b97287-07e2-4a99-a3b6-da5a63a56629" />
+<img width="877" height="359" alt="image" src="https://github.com/user-attachments/assets/d0013ce9-1eff-4688-97af-57838f2dc7fd" />
+
+Then:
+- Clone the corresponding module script  
+- Rename it to match (e.g. `World_3BeeUpgrades`)  
+
+Configure the file:
+- Set the correct **currency**
+- Update upgrade types if needed *(see Upgrade Configuration)*  
+
+⚠️ Important:
+- Replace all `World_2` references with `World_3`  
+- Example: `World_2SpawnTime` → `World_3SpawnTime`  
+- Use **Ctrl + F** in the script editor to replace everything  
+
+Repeat this for each upgrade board in your new world.
+
+---
+
+#### Rebirth
+
+Same process as upgrades:
+
+- Duplicate the invisible part  
+- Rename it (example: `Ascension`)  
+
+<img width="163" height="86" alt="image" src="https://github.com/user-attachments/assets/c39b5d6d-7bd6-4079-9570-470684a9032b" />
+
+Then:
+- Duplicate the module script  
+- Rename it to match  
+- Change the currency and configuration if needed  
+
+---
+
+#### Runes
+
+Same as upgrades/rebirth, but with an extra button:
+
+- Clone the invisible display part **and** the button  
+- Rename both to `World_3`
+
+<img width="158" height="159" alt="image" src="https://github.com/user-attachments/assets/3a1f0b6c-e344-4280-a2c6-b9448b08a7eb" />
+
+- Clone the module script and rename it `World_3`
+
+<img width="168" height="108" alt="image" src="https://github.com/user-attachments/assets/4f00adc5-4c72-4a08-9237-58e1ce950e93" />
+
+Then configure:
+- Change the **name**
+- Replace `"FrozenHoney"` with your new currency  
+- Adjust boosts if needed *(see Runes Configuration)*  
+
+Example (top of the file):
+
+<img width="809" height="144" alt="image" src="https://github.com/user-attachments/assets/0b29577b-8fab-4337-adfa-ca5a9560c827" />
+
+⚠️ Important:
+- Replace all `World_2` references with `World_3`  
+- (Use **Ctrl + F**)
+- Also, I noticed a problem in the UI: for all world displays, **delete** the `UIAspectRatioConstraint` in the Template.  
+- <img width="351" height="320" alt="image" src="https://github.com/user-attachments/assets/97636531-cdd8-468a-8c48-f7fbd503b95f" />
+
+
+
+---
+
+#### Others
+
+- Duplicate all **gamepass boards** and move them (e.g. 750 studs)
+
+<img width="323" height="292" alt="image" src="https://github.com/user-attachments/assets/57c11cb5-39c9-4fcc-a78b-ed8d3cdf5572" />
+
+- Check **leaderboard configuration** if you want to add stats for your new currency
+- If you cloned the Snow map, you can remove the clicker, add a new functionality with your own script, or simply remove it completely.
+- And I hope I didn't forget anything
