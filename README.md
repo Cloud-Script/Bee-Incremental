@@ -1,3 +1,18 @@
+# Animation
+
+---
+
+We cannot make the collecting animation public.  
+If you want to use it, you need to upload the animation to Roblox and copy its ID.
+
+<img width="418" height="496" alt="image" src="https://github.com/user-attachments/assets/e602be3b-4cfa-4409-9e45-9b93d5561144" />
+
+Then, replace the animation ID in the **CollectBee** properties with your own.
+
+<img width="232" height="194" alt="image" src="https://github.com/user-attachments/assets/08fd2302-36c1-49c5-9409-3c42a88a91ea" />
+
+---
+
 # Group Boosts
 
 Make sure to change your group for Group Boosts to work.  
